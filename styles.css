@@ -1,48 +1,167 @@
-/* 先設定版面底圖 */
+/* ===== 豪華主題色系 ===== */
 :root{
---bg: #0f1226;
---text: #e7e8ee;
---x: #ff6b6b;
---o: #4dd0e1;
---win: #ffe066;
+  --bg: radial-gradient(circle at top, #1b255f, #050816);
+  --text: #f4f6ff;
+  --x: #ff6aa2;
+  --o: #4fd8ff;
+  --win: #ffd369;
+  --glass: rgba(255,255,255,0.15);
+  --border: rgba(255,255,255,0.25);
+  --glow: 0 0 25px rgba(255,255,255,0.25);
 }
-*{box-sizing:border-box}
-html,body{height:100%;}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+
 body{
- margin:0; font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
- background:var(--bg); color:var(--text); display:grid; place-items:center; padding:24px;
+  margin:0;
+  font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color:var(--text);
+  display:grid;
+  place-items:center;
+  padding:24px;
+  text-align:center;
 }
 
-/* 再設計main的部分與h1 */
-.container{ width: min(720px, 96%); text-align:center; }
-h1{ margin:0 0 16px 0; font-size:24px; }
-.status{ margin-bottom:12px; }
+/* ===== 主容器 ===== */
+.container{ 
+  width: min(720px, 96%);
+  padding: 24px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--border);
+  box-shadow: 0 25px 60px rgba(0,0,0,.6);
+}
 
-/* 設計棋盤<section id="board" class="board" aria-label="井字棋棋盤"> */
+/* ===== 標題（不使用 background-clip） ===== */
+h1{
+  margin: 0 0 18px;
+  font-size: 32px;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-shadow:
+    0 0 6px rgba(154,215,255,.6),
+    0 0 14px rgba(154,215,255,.4),
+    0 0 24px rgba(154,215,255,.25);
+}
+
+.status{
+  margin-bottom:14px;
+  font-size:18px;
+  opacity:.9;
+}
+
+/* ===== 棋盤 ===== */
 .board{
-display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;
-background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-padding:12px; border-radius:14px; width:min(560px, 92%); aspect-ratio:1/1;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:14px;
+  padding:16px;
+  border-radius:22px;
+  width:min(360px, 92%);
+  aspect-ratio:1/1;
+  margin: 0 auto;
+  background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03));
+  backdrop-filter: blur(20px);
+  border:1px solid var(--border);
+  box-shadow: inset 0 0 40px rgba(255,255,255,.08), 0 0 50px rgba(0,0,0,.6);
 }
 
-/* 設計棋盤格<button class="cell" data-idx="0" > */
+/* ===== 棋盤格 ===== */
 .cell{
-    aspect-ratio: 1 / 1;
-    width: 100%;
-    height: 100%;
-    border-radius:10px; background:linear-gradient(180deg,#121430,#0e1030); border:1px solid rgba(255,255,255,0.03);
-    font-size:48px; font-weight:800; display:grid; place-items:center;
-    cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent;
+  aspect-ratio: 1 / 1;
+  width:100%;
+  height:100%;
+  border-radius:18px;
+  border:1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,.25), rgba(255,255,255,.05));
+  font-size:52px;
+  font-weight:900;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  box-shadow: inset 0 0 18px rgba(255,255,255,.15), 0 10px 25px rgba(0,0,0,.6);
+  transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s;
 }
-.cell.x{ color:var(--x); }
-.cell.o{ color:var(--o); }
-.cell.win{ background:var(--win); color:#000; }
 
-/* 設計Reset鍵處<div class=“controls”>與button */
-.scoreboard{ margin-top:16px; text-align:left; display:inline-block; }
-.scoreboard h2{ margin-bottom:8px; font-size:18px; }
+/* 懸停浮起 */
+.cell:hover{
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 18px 40px rgba(0,0,0,.8);
+}
+
+/* 落子動畫 */
+.cell.x,.cell.o{
+  animation: pop .25s ease-out;
+}
+
+@keyframes pop{
+  0%{ transform: scale(.6); opacity:.3; }
+  100%{ transform: scale(1); opacity:1; }
+}
+
+.cell.x{ 
+  color:var(--x); 
+  text-shadow: 0 0 18px rgba(255,106,162,.7); 
+}
+
+.cell.o{ 
+  color:var(--o); 
+  text-shadow: 0 0 18px rgba(79,216,255,.7); 
+}
+
+.cell.win{
+  background: linear-gradient(180deg, #fff3b0, #ffd369);
+  color:#000;
+  animation: winPulse 1.2s infinite alternate;
+  box-shadow: 0 0 28px rgba(255,211,105,.95);
+}
+
+@keyframes winPulse{
+  from{ transform: scale(1); }
+  to{ transform: scale(1.08); }
+}
+
+/* ===== 記分板 ===== */
+.scoreboard{
+  margin-top:24px;
+  text-align:center;
+  display:inline-block;
+}
+
+.scoreboard h2{
+  margin-bottom:10px;
+  letter-spacing: 1px;
+  opacity:.85;
+}
+
+/* ===== 按鈕 ===== */
 .controls{ margin-top:12px; }
-button{ padding:8px 12px; border-radius:10px; border:0; background:#21264a; color:var(--text);
-cursor:pointer; }
-button:disabled{ opacity:.5; cursor:not-allowed; }
 
+button{
+  padding:12px 22px;
+  border-radius:999px;
+  border:0;
+  background: linear-gradient(135deg, #5f9cff, #9f6bff);
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow: 0 8px 22px rgba(0,0,0,.45),
+              inset 0 0 12px rgba(255,255,255,.25);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+button:hover{
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 14px 32px rgba(0,0,0,.55),
+              inset 0 0 18px rgba(255,255,255,.35);
+}
+
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
