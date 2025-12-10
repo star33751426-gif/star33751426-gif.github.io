@@ -1,13 +1,13 @@
-/* ===== 豪華主題色系 ===== */
+/* ===== 粉嫩柔霧主題色（降低亮度） ===== */
 :root{
-  --bg: radial-gradient(circle at top, #1b255f, #050816);
-  --text: #f4f6ff;
-  --x: #ff6aa2;
-  --o: #4fd8ff;
-  --win: #ffd369;
-  --glass: rgba(255,255,255,0.15);
-  --border: rgba(255,255,255,0.25);
-  --glow: 0 0 25px rgba(255,255,255,0.25);
+  --bg: radial-gradient(circle at top, #f2dcea, #dcd6f3); /* 降低亮度的粉紫 */
+  --text: #4a3b52;
+  --x: #e06aa1;      /* 低飽和粉紅 X */
+  --o: #6fa3e8;      /* 低飽和藍 O */
+  --win: #f0e2a0;    /* 柔奶油黃 勝利 */
+  --glass: rgba(255,255,255,0.35);
+  --border: rgba(160,120,180,0.35);
+  --shadow: 0 18px 36px rgba(120,80,150,.25);
 }
 
 *{ box-sizing:border-box; }
@@ -17,86 +17,86 @@ body{
   margin:0;
   font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
   background: var(--bg);
-  color:var(--text);
+  color: var(--text);
   display:grid;
   place-items:center;
   padding:24px;
   text-align:center;
 }
 
-/* ===== 主容器 ===== */
+/* ===== 主卡片容器（霧面玻璃感） ===== */
 .container{ 
   width: min(720px, 96%);
-  padding: 24px;
-  border-radius: 22px;
-  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-  backdrop-filter: blur(18px);
+  padding: 26px;
+  border-radius: 26px;
+  background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.25));
+  backdrop-filter: blur(16px);
   border: 1px solid var(--border);
-  box-shadow: 0 25px 60px rgba(0,0,0,.6);
+  box-shadow: var(--shadow);
 }
 
-/* ===== 標題（不使用 background-clip） ===== */
+/* ===== 標題（不刺眼粉霧發光） ===== */
 h1{
   margin: 0 0 18px;
-  font-size: 32px;
+  font-size: 30px;
   letter-spacing: 2px;
-  color: #ffffff;
+  color: #d46ba4;
   text-shadow:
-    0 0 6px rgba(154,215,255,.6),
-    0 0 14px rgba(154,215,255,.4),
-    0 0 24px rgba(154,215,255,.25);
+    0 0 4px rgba(212,107,164,.35),
+    0 0 10px rgba(212,107,164,.25);
 }
 
 .status{
   margin-bottom:14px;
   font-size:18px;
-  opacity:.9;
+  color:#5b4a6a;
 }
 
-/* ===== 棋盤 ===== */
+/* ===== 棋盤（霧面奶油卡片） ===== */
 .board{
   display:grid;
   grid-template-columns: repeat(3, 1fr);
   gap:14px;
-  padding:16px;
-  border-radius:22px;
+  padding:18px;
+  border-radius:24px;
   width:min(360px, 92%);
   aspect-ratio:1/1;
   margin: 0 auto;
-  background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03));
-  backdrop-filter: blur(20px);
+  background: linear-gradient(180deg, #f7f2fa, #ece6f6);
   border:1px solid var(--border);
-  box-shadow: inset 0 0 40px rgba(255,255,255,.08), 0 0 50px rgba(0,0,0,.6);
+  box-shadow: inset 0 0 18px rgba(180,140,210,.18),
+              0 14px 30px rgba(120,80,150,.35);
 }
 
-/* ===== 棋盤格 ===== */
+/* ===== 棋盤格（低反光磁磚） ===== */
 .cell{
   aspect-ratio: 1 / 1;
   width:100%;
   height:100%;
-  border-radius:18px;
+  border-radius:20px;
   border:1px solid var(--border);
-  background: linear-gradient(180deg, rgba(255,255,255,.25), rgba(255,255,255,.05));
-  font-size:52px;
+  background: linear-gradient(180deg, #f6f2fa, #e8e2f2);
+  font-size:50px;
   font-weight:900;
   display:grid;
   place-items:center;
   cursor:pointer;
   user-select:none;
   -webkit-tap-highlight-color:transparent;
-  box-shadow: inset 0 0 18px rgba(255,255,255,.15), 0 10px 25px rgba(0,0,0,.6);
-  transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s;
+  box-shadow: inset 0 0 10px rgba(160,120,190,.25),
+              0 8px 18px rgba(120,80,150,.35);
+  transition: transform .25s ease, box-shadow .25s ease;
 }
 
-/* 懸停浮起 */
+/* 懸停：柔柔浮起 */
 .cell:hover{
-  transform: translateY(-4px) scale(1.04);
-  box-shadow: 0 18px 40px rgba(0,0,0,.8);
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 26px rgba(120,80,150,.45);
 }
 
-/* 落子動畫 */
+/* 落子動畫（柔彈） */
 .cell.x,.cell.o{
-  animation: pop .25s ease-out;
+  animation: pop .22s ease-out;
 }
 
 @keyframes pop{
@@ -104,29 +104,31 @@ h1{
   100%{ transform: scale(1); opacity:1; }
 }
 
+/* X / O 柔霧發光 */
 .cell.x{ 
   color:var(--x); 
-  text-shadow: 0 0 18px rgba(255,106,162,.7); 
+  text-shadow: 0 0 8px rgba(224,106,161,.45); 
 }
 
 .cell.o{ 
   color:var(--o); 
-  text-shadow: 0 0 18px rgba(79,216,255,.7); 
+  text-shadow: 0 0 8px rgba(111,163,232,.45); 
 }
 
+/* 勝利格（不刺眼金光） */
 .cell.win{
-  background: linear-gradient(180deg, #fff3b0, #ffd369);
-  color:#000;
-  animation: winPulse 1.2s infinite alternate;
-  box-shadow: 0 0 28px rgba(255,211,105,.95);
+  background: linear-gradient(180deg, #f6efc6, #f0e2a0);
+  color:#6b5800;
+  animation: winPulse 1.1s infinite alternate;
+  box-shadow: 0 0 18px rgba(240,226,160,.65);
 }
 
 @keyframes winPulse{
   from{ transform: scale(1); }
-  to{ transform: scale(1.08); }
+  to{ transform: scale(1.06); }
 }
 
-/* ===== 記分板 ===== */
+/* ===== 控制區 ===== */
 .scoreboard{
   margin-top:24px;
   text-align:center;
@@ -136,32 +138,34 @@ h1{
 .scoreboard h2{
   margin-bottom:10px;
   letter-spacing: 1px;
-  opacity:.85;
+  color:#7a5fa0;
 }
 
-/* ===== 按鈕 ===== */
+/* ===== 霧面高級按鈕 ===== */
 .controls{ margin-top:12px; }
 
 button{
-  padding:12px 22px;
+  padding:12px 26px;
   border-radius:999px;
   border:0;
-  background: linear-gradient(135deg, #5f9cff, #9f6bff);
+  background: linear-gradient(135deg, #d890bf, #8a7bd9);
   color:white;
-  font-weight:700;
+  font-weight:800;
+  letter-spacing:1px;
   cursor:pointer;
-  box-shadow: 0 8px 22px rgba(0,0,0,.45),
-              inset 0 0 12px rgba(255,255,255,.25);
+  box-shadow: 0 8px 18px rgba(120,80,150,.45),
+              inset 0 0 10px rgba(255,255,255,.35);
   transition: transform .2s ease, box-shadow .2s ease;
 }
 
 button:hover{
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 14px 32px rgba(0,0,0,.55),
-              inset 0 0 18px rgba(255,255,255,.35);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 12px 26px rgba(120,80,150,.6),
+              inset 0 0 14px rgba(255,255,255,.45);
 }
 
 button:disabled{
   opacity:.5;
   cursor:not-allowed;
 }
+
